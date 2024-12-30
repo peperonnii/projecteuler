@@ -1,0 +1,43 @@
+name: Fetch Profile Image and Update README
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"  # Runs every 30 minutes
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Download profile image
+      run: |
+        curl -o profileimage.png https://projecteuler.net/profile/pepperonii.png
+
+    - name: Get current time
+      id: timestamp
+      run: |
+        echo "CURRENT_TIME=$(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
+
+    - name: Update README with profile image and timestamp
+      run: |
+        if [ -f "profileimage.png" ]; then
+          # Update README with the profile image path
+          sed -i 's|https://projecteuler.net/profile/pepperonii.png|./profileimage.png|' README.md
+          
+          # Add a "Last updated" timestamp at the end of the README
+          echo "_Last updated: $CURRENT_TIME_" >> README.md
+        fi
+
+    - name: Commit updated README
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git add README.md
+        git commit -m "gh actions fetched profile image"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
