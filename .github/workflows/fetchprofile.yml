@@ -2,6 +2,7 @@ name: Fetch Profile Image and Update README
 
 on:
   schedule:
+  workflow_dispatch:
     - cron: "*/30 * * * *"  # Runs every 30 minutes
 
 jobs:
