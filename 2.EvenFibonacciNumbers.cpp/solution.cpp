@@ -26,7 +26,3 @@ int main() {
 /*select all values that are even*/
 /*create array that holds all the even numbers*/
 /*then add them together*/
-
-
-
-
