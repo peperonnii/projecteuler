@@ -27,9 +27,15 @@ jobs:
           # Update README with the profile image path
           sed -i 's|https://projecteuler.net/profile/pepperonii.png|./profileimage.png|' README.md
           
-          # Add a "Last updated" timestamp at the end of the README
-          echo "_Last updated: $CURRENT_TIME_" >> README.md
+          # Replace or add a "Last updated" timestamp at the end of the README
+          if grep -q "Last updated: " README.md; then
+            sed -i "s|_Last updated: .*_|_Last updated: ${CURRENT_TIME}_|" README.md
+          else
+            echo "_Last updated: ${CURRENT_TIME}_" >> README.md
+          fi
         fi
+      env:
+        CURRENT_TIME: ${{ env.CURRENT_TIME }}
 
     - name: Commit updated README
       run: |
@@ -40,4 +46,3 @@ jobs:
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
