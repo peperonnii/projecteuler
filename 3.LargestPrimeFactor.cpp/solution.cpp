@@ -2,18 +2,24 @@
 #include <iostream>
 
 bool isPrime(int n) {
-  if (n == 1) {
-    std::cout << "n == 1 \n aborting...";
+  if (n < 2) {
     return false;
-  } else if (n / n == 1 && n / 1 == n) {
-    return true;
   }
-  return false;
+  for (int i = 2; i < n - 1; i++) {
+    if (n % i == 0) {
+      return false;
+    }
+  }
+  return true;
 }
 
+/*int PrimeFactor() {*/
+/**/
+/*}*/
+/**/
 int main() {
   int input;
-  std::cout << 'Enter a number: ';
+  std::cout << "Enter a number (n): ";
   std::cin >> input;
   isPrime(input);
 
