@@ -1,35 +1,33 @@
 #include <cstdio>
 #include <iostream>
 
-bool isPrime(int n) {
-  if (n < 2) {
-    return false;
+long long PrimeFactors(long long n) {
+  long long largest = -1;
+  /*elimating factors of two first to make the search faster*/
+  while (n % 2 == 0) {
+    largest = 2;
+    n /= 2;
   }
-  for (int i = 2; i < n - 1; i++) {
-    if (n % i == 0) {
-      return false;
+  /*eliminating odd factors instead of checking whether each number is prime	*/
+  for (long long i = 3; i * i <= n; i += 2) {
+    while (n % i == 0) {
+      largest = i;
+      n /= i;
     }
   }
-  return true;
-}
-
-int PrimeFactors(int n) {
-  int lpf;
-  for (int i = 1; i <= n - 1; i++) {
-    if (isPrime(i)) {
-      std::cout << i << "\n";
-      lpf = i;
-    }
+  if (n > 2) {
+    largest = n;
   }
-  return lpf;
+  return largest;
 }
 
 int main() {
-  int input;
+  long long input;
   std::cout << "Enter a number (n): ";
   std::cin >> input;
 
-  PrimeFactors(input);
+  long long final = PrimeFactors(input);
+  std::cout << "The largest prime factor of " << input << " is " << final;
 
   return 0;
 }
