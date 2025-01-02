@@ -13,15 +13,23 @@ bool isPrime(int n) {
   return true;
 }
 
-/*int PrimeFactor() {*/
-/**/
-/*}*/
-/**/
+int PrimeFactors(int n) {
+  int lpf;
+  for (int i = 1; i <= n - 1; i++) {
+    if (isPrime(i)) {
+      std::cout << i << "\n";
+      lpf = i;
+    }
+  }
+  return lpf;
+}
+
 int main() {
   int input;
   std::cout << "Enter a number (n): ";
   std::cin >> input;
-  isPrime(input);
+
+  PrimeFactors(input);
 
   return 0;
 }
