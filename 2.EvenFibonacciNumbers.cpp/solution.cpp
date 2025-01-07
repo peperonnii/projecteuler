@@ -23,6 +23,7 @@ int main() {
 }
 
 /*iterate through fib seq where n < 4x10^6*/
+
 /*select all values that are even*/
 /*create array that holds all the even numbers*/
 /*then add them together*/
